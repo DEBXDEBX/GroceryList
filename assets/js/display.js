@@ -84,21 +84,23 @@ class Display {
     this.colorSetOfTabs(tabList);
   }
 
-  paintItems(bookmarkArray) {
-    this.clearBookmarkDisplay();
-    this.displayNone(this.elements.bookmarkHeading);
-    this.displayBlock(this.elements.bookmarkHeading);
-    this.displayNone(this.elements.bookmarkList);
-    this.displayNone(this.elements.bookmarkForm);
-    this.displayNone(this.elements.catForm);
+  paintItems(itemsArray) {
+    this.clearItemDisplay();
+    this.displayNone(this.elements.itemHeading);
+    this.displayBlock(this.elements.itemHeading);
+    this.displayNone(this.elements.itemkList);
+    this.displayNone(this.elements.itemForm);
+    this.displayNone(this.elements.storeForm);
     //build bookmark div
 
-    bookmarkArray.forEach((bm, index) => {
-      // createNewBookMarkDiv(bm.name, bm.address);
-      this.createNewBookMarkDiv(bm.name, bm.url, index);
-      //create a new div for each bookmark
-    });
-    this.displayBlock(this.elements.bookmarkList);
+    // bookmarkArray.forEach((bm, index) => {
+    //   // createNewBookMarkDiv(bm.name, bm.address);
+    //   this.createNewBookMarkDiv(bm.name, bm.url, index);
+    //   //create a new div for each bookmark
+    // });
+    console.log(itemsArray);
+    this.elements.itemList.innerHTML = "<h1>item</h1>";
+    this.displayBlock(this.elements.itemList);
   }
 
   //Method

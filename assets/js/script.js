@@ -10,7 +10,16 @@ const el = new Elements();
 const display = new Display(el, $);
 // create storage
 const groceryListStorage = new ArrayStorageLS(GROCERY_LIST_STORAGE_KEY);
-
+//Select audio files
+const addItemAudio = document.querySelector("#addItemAudio");
+const addStoreAudio = document.querySelector("#addStoreAudio");
+const btnAudio = document.querySelector("#btnAudio");
+const cancelAudio = document.querySelector("#cancelAudio");
+const clickAudio = document.querySelector("#clickAudio");
+const deleteAudio = document.querySelector("#deleteAudio");
+const tabAudio = document.querySelector("#tabAudio");
+const warning1Audio = document.querySelector("#warning1Audio");
+const warning2Audio = document.querySelector("#warning2Audio");
 //The start of program exicution.
 window.onload = function () {
   groceryListStartUp();
@@ -28,10 +37,11 @@ function groceryListStartUp() {
 }
 function renderStores() {
   display.paintStores(mapNamesOut(arrayOfStores));
-  console.log("render Stores");
-  console.log(arrayOfStores);
 }
-function saveStores() {
+function renderItems() {
+  display.paintItems(arrayOfStores[storeIndex].arrayOfItems);
+}
+function saveGorceryList() {
   groceryListStorage.saveArrayToLS(arrayOfStores);
 }
 // create a new array with only the items name
@@ -53,14 +63,11 @@ function sortArrayByName(array) {
     if (nameA > nameB) {
       return 1;
     }
-    // names must be eimagePathual
     return 0;
   }); //End sort function
 } // End sortArrayByName(array)
 
 el.storeList.addEventListener("click", (e) => {
-  console.log("store list clicked");
-  //check if control was down, if so delete
   if (e.target.classList.contains("deleteStore")) {
     // get the index from the html
 
@@ -69,21 +76,18 @@ el.storeList.addEventListener("click", (e) => {
     if (isNaN(index)) {
       return;
     }
-    // catIndex = index;
+    // storeIndex = index;
     storeIndex = index;
-    // arrayOfTabs.splice(catIndex, 1);
     arrayOfStores.splice(storeIndex, 1);
-    // deleteAudio.play();
+    deleteAudio.play();
     display.showAlert("A store was deleted", "success", 1500);
     // save
-    // saveBokmarks();
-    saveStores();
+    saveGorceryList();
     if (arrayOfStores.length === 0) {
       groceryListStartUp();
       return;
     }
 
-    // renderCategorys();
     renderStores();
     return;
   }
@@ -103,17 +107,14 @@ el.storeList.addEventListener("click", (e) => {
     if (isNaN(index)) {
       return;
     }
-    // catIndex = index;
     storeIndex = index;
-    // tabAudio.play();
-    // renderBookmarks();
-    renderStores();
+    tabAudio.play();
+    renderItems();
   }
 });
 
 el.storeAddIcon.addEventListener("click", (e) => {
-  console.log("cliked add store icon");
-  // clickAudio.play();
+  clickAudio.play();
   display.showStoreForm();
   display.displayNone(el.itemList);
   el.storeTextInput.focus();
@@ -121,12 +122,11 @@ el.storeAddIcon.addEventListener("click", (e) => {
 
 el.storeAddBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("clicked store add btn");
   // grab the text
   let storeName = el.storeTextInput.value.trim();
   // check if text is empty
   if (!storeName) {
-    // warning1Audio.play();
+    warning1Audio.play();
     display.showAlert("Please enter a name for the Store!", "error");
     return;
   }
@@ -143,32 +143,29 @@ el.storeAddBtn.addEventListener("click", (e) => {
   });
   // check for taken name
   if (isTaken) {
-    // warning2Audio.play();
+    warning2Audio.play();
     display.showAlert("That name is taken", "error");
     storeIndex = -243;
   } else {
     // push newStore into the array
     arrayOfStores.push(newStore);
-    // addBookmarkAudio.play();
+    addStoreAudio.play();
     // sort array by name
     sortArrayByName(arrayOfStores);
     // save
-    saveStores();
-    // addAudio.play();
+    saveGorceryList();
     display.showAlert("A new category was added", "success", 1500);
     // hide form
     display.hideStoreForm();
     // reset form
     el.storeForm.reset();
-
     // send array to display
     renderStores();
   } // End else statement
 });
 
 el.storeCancelBtn.addEventListener("click", (e) => {
-  console.log("clicked store cancel btn");
-  // cancelAudio.play();
+  cancelAudio.play();
   // reset form
   el.storeForm.reset();
   // hide form
@@ -188,45 +185,34 @@ el.itemList.addEventListener("click", (e) => {
 });
 
 el.itemAddIcon.addEventListener("click", (e) => {
-  console.log("clicked item add icon");
-  // clickAudio.play();
+  clickAudio.play();
   display.showItemForm();
   el.itemTextInput.focus();
 });
 
 el.itemAddBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("clicked item add btn");
   let itemText = el.itemTextInput.value.trim();
-  let bookmarkName = el.textBookmark.value.trim();
-  let bookmarkURL = el.textURL.value.trim();
-  if (!bookmarkName) {
+  if (!itemText) {
     warning1Audio.play();
-    display.showAlert("Please enter a name for the bookmark!", "error");
+    display.showAlert("Please enter a name for the item", "error");
     return;
   }
 
   let newItem = new Item(itemText);
   arrayOfStores[storeIndex].arrayOfItems.push(newItem);
-  // addBookmarkAudio.play();
+  addItemAudio.play();
 
   // save
-  // saveBokmarks();
-  saveStores();
-  // el.bookmarkForm.reset();
+  saveGorceryList();
   el.itemForm.reset();
-  // display.displayNone(el.bookmarkForm);
   display.displayNone(el.itemForm);
   display.showAlert("A new item was added", "success", 1500);
-  // renderBookmarks();
   renderItems();
 });
 
 el.itemCancelBtn.addEventListener("click", (e) => {
-  console.log("clicked item cancel btn");
   cancelAudio.play();
-  // reset form
-  // el.bookmarkForm.reset();
   el.itemForm.reset();
   // hide form
   display.displayNone(el.itemForm);

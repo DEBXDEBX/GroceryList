@@ -55,13 +55,21 @@ class Display {
   }
   paintStores(mappedArray) {
     // this.displayBlock(this.elements.catHeading);
+    this.displayBlock(this.elements.storeHeading);
     // this.displayNone(catList);
+    this.displayNone(this.elements.storeList);
     // this.displayNone(bookmarkList);
+    this.displayNone(this.elements.itemList);
     // this.clearCategoryDisplay();
+    this.clearStoreDisplay();
     // this.clearBookmarkDisplay();
+    this.clearItemDisplay();
     // this.displayNone(this.elements.catHeading);
+    this.displayNone(this.elements.storeHeading);
     // this.displayNone(this.elements.bookmarkHeading);
+    this.displayNone(this.elements.itemHeading);
     // this.displayBlock(this.elements.catHeading);
+    this.displayBlock(this.elements.storeHeading);
     // make variable for html
     let html = "";
 
@@ -70,7 +78,7 @@ class Display {
     });
     this.elements.storeList.innerHTML = html;
 
-    this.displayBlock(this.elements.catList);
+    this.displayBlock(this.elements.storeList);
     // color tabs
     const tabList = document.getElementsByClassName("store");
     this.colorSetOfTabs(tabList);

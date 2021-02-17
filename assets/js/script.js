@@ -60,6 +60,55 @@ function sortArrayByName(array) {
 
 el.storeList.addEventListener("click", (e) => {
   console.log("store list clicked");
+  //check if control was down, if so delete
+  if (e.target.classList.contains("deleteStore")) {
+    // get the index from the html
+
+    let index = e.target.dataset.index;
+    index = parseInt(index);
+    if (isNaN(index)) {
+      return;
+    }
+    // catIndex = index;
+    storeIndex = index;
+    // arrayOfTabs.splice(catIndex, 1);
+    arrayOfStores.splice(storeIndex, 1);
+    // deleteAudio.play();
+    display.showAlert("A store was deleted", "success", 1500);
+    // save
+    // saveBokmarks();
+    saveStores();
+    if (arrayOfStores.length === 0) {
+      groceryListStartUp();
+      return;
+    }
+
+    // renderCategorys();
+    renderStores();
+    return;
+  }
+
+  // event delegation
+  if (e.target.classList.contains("store")) {
+    const element = document.querySelector(".store.active");
+    if (element) {
+      element.classList.remove("active");
+    }
+    // add active class
+    e.target.classList.add("active");
+
+    // get the index from the html
+    let index = e.target.dataset.index;
+    index = parseInt(index);
+    if (isNaN(index)) {
+      return;
+    }
+    // catIndex = index;
+    storeIndex = index;
+    // tabAudio.play();
+    // renderBookmarks();
+    renderStores();
+  }
 });
 
 el.storeAddIcon.addEventListener("click", (e) => {
@@ -140,13 +189,45 @@ el.itemList.addEventListener("click", (e) => {
 
 el.itemAddIcon.addEventListener("click", (e) => {
   console.log("clicked item add icon");
+  // clickAudio.play();
+  display.showItemForm();
+  el.itemTextInput.focus();
 });
 
 el.itemAddBtn.addEventListener("click", (e) => {
   e.preventDefault();
   console.log("clicked item add btn");
+  let itemText = el.itemTextInput.value.trim();
+  let bookmarkName = el.textBookmark.value.trim();
+  let bookmarkURL = el.textURL.value.trim();
+  if (!bookmarkName) {
+    warning1Audio.play();
+    display.showAlert("Please enter a name for the bookmark!", "error");
+    return;
+  }
+
+  let newItem = new Item(itemText);
+  arrayOfStores[storeIndex].arrayOfItems.push(newItem);
+  // addBookmarkAudio.play();
+
+  // save
+  // saveBokmarks();
+  saveStores();
+  // el.bookmarkForm.reset();
+  el.itemForm.reset();
+  // display.displayNone(el.bookmarkForm);
+  display.displayNone(el.itemForm);
+  display.showAlert("A new item was added", "success", 1500);
+  // renderBookmarks();
+  renderItems();
 });
 
 el.itemCancelBtn.addEventListener("click", (e) => {
   console.log("clicked item cancel btn");
+  cancelAudio.play();
+  // reset form
+  // el.bookmarkForm.reset();
+  el.itemForm.reset();
+  // hide form
+  display.displayNone(el.itemForm);
 });

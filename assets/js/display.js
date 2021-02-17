@@ -91,30 +91,18 @@ class Display {
     this.displayNone(this.elements.itemkList);
     this.displayNone(this.elements.itemForm);
     this.displayNone(this.elements.storeForm);
-    //build bookmark div
-
-    // bookmarkArray.forEach((bm, index) => {
-    //   // createNewBookMarkDiv(bm.name, bm.address);
-    //   this.createNewBookMarkDiv(bm.name, bm.url, index);
-    //   //create a new div for each bookmark
-    // });
     console.log(itemsArray);
-    this.elements.itemList.innerHTML = "<h1>item</h1>";
+    // ***********************************************
+    // make variable for html
+    let html = "";
+    itemsArray.forEach((item, index) => {
+      html += `<li data-index="${index}" class="item"><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${item.name}</h4></li>`;
+    });
+
+    // ***********************************************
+    // this.elements.itemList.innerHTML = "<h1>item</h1>";
+    this.elements.itemList.innerHTML = html;
     this.displayBlock(this.elements.itemList);
-  }
-
-  //Method
-  createNewBookMarkDiv(name, address, index) {
-    // This function creates the div and append's it to the div.
-    const newElement = document.createElement("div");
-    //add a title with the web address
-    newElement.innerHTML = `<div class='myFlexItem'><h4 class="pill"><a href="${address}" >${name}</a></h4><div class='spanDiv'><span data-index="${index}" title='Move Left' class='moveUp'>&lArr;</span><span title='Delete' data-index="${index}" ><i
-    title="Delete Bookmark"
-    class="delete-item fas fa-trash-alt"
-  ></i
-></span><span title='Move Right' data-index="${index}" class='moveDown'>&rArr;</span></div>`;
-
-    this.elements.bookmarkList.appendChild(newElement);
   }
 
   //Method

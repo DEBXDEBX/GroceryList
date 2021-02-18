@@ -24,5 +24,7 @@ class Elements {
     this.messageDisplay = document.querySelector("#displayMessage");
     // select message border
     this.messageBorder = document.querySelector("#modalBorder");
+    // delete mode btn
+    this.deleteModeBtn = document.querySelector("#deleteMode");
   }
 }

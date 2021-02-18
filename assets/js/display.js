@@ -53,7 +53,7 @@ class Display {
   showItemForm() {
     this.displayBlock(this.elements.itemForm);
   }
-  paintStores(mappedArray) {
+  paintStores(mappedArray, deleteMode) {
     // this.displayBlock(this.elements.catHeading);
     this.displayBlock(this.elements.storeHeading);
     // this.displayNone(catList);
@@ -70,12 +70,23 @@ class Display {
     this.displayNone(this.elements.itemHeading);
     // this.displayBlock(this.elements.catHeading);
     this.displayBlock(this.elements.storeHeading);
-    // make variable for html
-    let html = "";
 
-    mappedArray.forEach((element, index) => {
-      html += `<li data-index="${index}" class="store">${element}</li>`;
-    });
+    // make a variable to hold html
+    let html = "";
+    if (deleteMode) {
+      mappedArray.forEach((element, index) => {
+        html += `<li data-index="${index}" class="store">${element}<i
+        title="Delete Store"
+        class="deleteStore trash fas fa-trash-alt"
+      ></i
+    ></li>`;
+      });
+    } else {
+      mappedArray.forEach((element, index) => {
+        html += `<li data-index="${index}" class="store">${element}</li>`;
+      });
+    }
+
     this.elements.storeList.innerHTML = html;
 
     this.displayBlock(this.elements.storeList);
@@ -91,14 +102,24 @@ class Display {
     this.displayNone(this.elements.itemkList);
     this.displayNone(this.elements.itemForm);
     this.displayNone(this.elements.storeForm);
-    console.log(itemsArray);
     // ***********************************************
     // make variable for html
     let html = "";
-    itemsArray.forEach((item, index) => {
-      html += `<li data-index="${index}" class="item"><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${item.name}</h4></li>`;
-    });
-
+    if (deleteMode) {
+      itemsArray.forEach((item, index) => {
+        html += `<li data-index="${index}" class="item"><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${
+          item.name
+        }<input type="checkbox" class="checkBox" ${
+          item.isInCart ? "checked" : " "
+        }></h4></li>`;
+      });
+    } else {
+      itemsArray.forEach((item, index) => {
+        html += `<li data-index="${index}" class="item"><h4><input type="checkbox" class="checkBox" ${
+          item.isInCart ? "checked" : " "
+        }>${item.name}</h4></li>`;
+      });
+    }
     // ***********************************************
     // this.elements.itemList.innerHTML = "<h1>item</h1>";
     this.elements.itemList.innerHTML = html;

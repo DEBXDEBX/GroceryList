@@ -145,3 +145,19 @@ nav li.item:hover {
   color: #e217a2;
 }
 /* item code end  */
+
+.deleteStore {
+  color: black;
+  margin: 12px;
+  transition: transform 0.7s cubic-bezier(0.45, 1.87, 0.62, 1.6);
+}
+.checkBox {
+  margin: 10px;
+}
+
+#deleteMode {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  color: red;
+}

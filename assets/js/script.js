@@ -3,6 +3,7 @@
 let arrayOfStores;
 let storeIndex = -243;
 let itemIndex = -243;
+let deleteMode = false;
 const GROCERY_LIST_STORAGE_KEY = "fileGrocery02162021DEBX";
 // create elements object
 const el = new Elements();
@@ -36,10 +37,10 @@ function groceryListStartUp() {
   renderStores();
 }
 function renderStores() {
-  display.paintStores(mapNamesOut(arrayOfStores));
+  display.paintStores(mapNamesOut(arrayOfStores), deleteMode);
 }
 function renderItems() {
-  display.paintItems(arrayOfStores[storeIndex].arrayOfItems);
+  display.paintItems(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
 }
 function saveGorceryList() {
   groceryListStorage.saveArrayToLS(arrayOfStores);
@@ -71,13 +72,21 @@ el.storeList.addEventListener("click", (e) => {
   if (e.target.classList.contains("deleteStore")) {
     // get the index from the html
 
-    let index = e.target.dataset.index;
+    let index = e.target.parentElement.dataset.index;
     index = parseInt(index);
     if (isNaN(index)) {
       return;
     }
     // storeIndex = index;
     storeIndex = index;
+    if (arrayOfStores[storeIndex].arrayOfItems.length > 0) {
+      warning1Audio.play();
+      display.showAlert(
+        "Please delete all your items before you delete store.",
+        "error"
+      );
+      return;
+    }
     arrayOfStores.splice(storeIndex, 1);
     deleteAudio.play();
     display.showAlert("A store was deleted", "success", 1500);
@@ -154,7 +163,7 @@ el.storeAddBtn.addEventListener("click", (e) => {
     sortArrayByName(arrayOfStores);
     // save
     saveGorceryList();
-    display.showAlert("A new category was added", "success", 1500);
+    display.showAlert("A new store was added", "success", 1500);
     // hide form
     display.hideStoreForm();
     // reset form
@@ -181,7 +190,29 @@ el.storeCancelBtn.addEventListener("click", (e) => {
 });
 
 el.itemList.addEventListener("click", (e) => {
-  console.log("clicked item list");
+  if (e.target.classList.contains("deleteItem")) {
+    // get the index from the html
+    let deleteIndex = e.target.parentElement.parentElement.dataset.index;
+    deleteIndex = parseInt(deleteIndex);
+    arrayOfStores[storeIndex].arrayOfItems.splice(deleteIndex, 1);
+    deleteAudio.play();
+    // save
+    saveGorceryList();
+    display.showAlert("A bookmark was deleted", "success", 1500);
+    renderItems();
+    return;
+  }
+
+  if (e.target.classList.contains("checkBox")) {
+    // get the index from the html
+    let index = e.target.parentElement.parentElement.dataset.index;
+    index = parseInt(index);
+    const currentValue = arrayOfStores[storeIndex].arrayOfItems[index].isInCart;
+    arrayOfStores[storeIndex].arrayOfItems[index].isInCart = !currentValue;
+    tabAudio.play();
+    saveGorceryList();
+    return;
+  }
 });
 
 el.itemAddIcon.addEventListener("click", (e) => {
@@ -216,4 +247,26 @@ el.itemCancelBtn.addEventListener("click", (e) => {
   el.itemForm.reset();
   // hide form
   display.displayNone(el.itemForm);
+});
+
+el.deleteModeBtn.addEventListener("click", (e) => {
+  deleteMode = !deleteMode;
+  console.log(deleteMode);
+
+  let activeStore = document.querySelector(".store.active");
+  if (!activeStore) {
+    renderStores();
+  } else {
+    let storeText = activeStore.textContent;
+    renderStores();
+    // loop through the main array and set the one with mactching text to active
+    const htmlCollection = document.querySelectorAll(".store");
+    for (let i = 0; i < htmlCollection.length; i++) {
+      if (htmlCollection[i].textContent === storeText) {
+        htmlCollection[i].classList.add("active");
+        break;
+      }
+    }
+    renderItems();
+  }
 });

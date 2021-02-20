@@ -198,7 +198,7 @@ el.itemList.addEventListener("click", (e) => {
     deleteAudio.play();
     // save
     saveGorceryList();
-    display.showAlert("A bookmark was deleted", "success", 1500);
+    display.showAlert("Item deleted", "success", 1500);
     renderItems();
     return;
   }

@@ -212,7 +212,8 @@ el.itemList.addEventListener("click", (e) => {
     arrayOfStores[storeIndex].arrayOfItems[index].isInCart = !currentValue;
     tabAudio.play();
 
-    renderItems();
+    // renderItems();
+    display.paintItemsOnly(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
     saveGorceryList();
     return;
   }

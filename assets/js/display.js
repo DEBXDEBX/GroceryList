@@ -129,9 +129,9 @@ class Display {
     this.elements.itemList.innerHTML = html;
     this.displayBlock(this.elements.itemList);
   }
-  paintItemsHIDE(itemsArray) {
+  paintItemsOnly(itemsArray) {
+    // took out heading effect to keep list steady
     this.clearItemDisplay();
-    this.displayNone(this.elements.itemHeading);
     this.displayBlock(this.elements.itemHeading);
     this.displayNone(this.elements.itemkList);
     this.displayNone(this.elements.itemForm);
@@ -141,7 +141,9 @@ class Display {
     let html = "";
     if (deleteMode) {
       itemsArray.forEach((item, index) => {
-        html += `<li data-index="${index}" class="item"><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${
+        html += `<li data-index="${index}"  ${
+          item.isInCart ? ' class="item inCart"' : ' class="item"'
+        }><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${
           item.name
         }<input type="checkbox" class="checkBox" ${
           item.isInCart ? "checked" : " "
@@ -149,7 +151,9 @@ class Display {
       });
     } else {
       itemsArray.forEach((item, index) => {
-        html += `<li data-index="${index}" class="item"><h4><input type="checkbox" class="checkBox" ${
+        html += `<li data-index="${index}" ${
+          item.isInCart ? ' class="item inCart"' : ' class="item"'
+        }><h4><input type="checkbox" class="checkBox" ${
           item.isInCart ? "checked" : " "
         }>${item.name}</h4></li>`;
       });
@@ -159,6 +163,7 @@ class Display {
     this.elements.itemList.innerHTML = html;
     this.displayBlock(this.elements.itemList);
   }
+
   //Method
   colorSetOfTabs(htmlCollection) {
     for (const item of htmlCollection) {

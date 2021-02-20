@@ -207,9 +207,12 @@ el.itemList.addEventListener("click", (e) => {
     // get the index from the html
     let index = e.target.parentElement.parentElement.dataset.index;
     index = parseInt(index);
+
     const currentValue = arrayOfStores[storeIndex].arrayOfItems[index].isInCart;
     arrayOfStores[storeIndex].arrayOfItems[index].isInCart = !currentValue;
     tabAudio.play();
+
+    renderItems();
     saveGorceryList();
     return;
   }
@@ -251,7 +254,6 @@ el.itemCancelBtn.addEventListener("click", (e) => {
 
 el.deleteModeBtn.addEventListener("click", (e) => {
   deleteMode = !deleteMode;
-  console.log(deleteMode);
 
   let activeStore = document.querySelector(".store.active");
   if (!activeStore) {

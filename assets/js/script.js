@@ -199,7 +199,8 @@ el.itemList.addEventListener("click", (e) => {
     // save
     saveGorceryList();
     display.showAlert("Item deleted", "success", 1500);
-    renderItems();
+    // renderItems();
+    display.paintItemsOnly(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
     return;
   }
 
@@ -212,7 +213,6 @@ el.itemList.addEventListener("click", (e) => {
     arrayOfStores[storeIndex].arrayOfItems[index].isInCart = !currentValue;
     tabAudio.play();
 
-    // renderItems();
     display.paintItemsOnly(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
     saveGorceryList();
     return;

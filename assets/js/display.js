@@ -129,7 +129,7 @@ class Display {
     this.elements.itemList.innerHTML = html;
     this.displayBlock(this.elements.itemList);
   }
-  paintItemsOnly(itemsArray) {
+  paintItemsOnly(itemsArray, deleteMode) {
     // took out heading effect to keep list steady
     this.clearItemDisplay();
     this.displayBlock(this.elements.itemHeading);

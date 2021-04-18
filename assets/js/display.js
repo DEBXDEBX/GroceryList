@@ -109,11 +109,11 @@ class Display {
       itemsArray.forEach((item, index) => {
         html += `<li data-index="${index}"  ${
           item.isInCart ? ' class="item inCart"' : ' class="item"'
-        }><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${
-          item.name
-        }<input type="checkbox" class="checkBox" ${
+        }><h4><input type="checkbox" class="checkBox" ${
           item.isInCart ? "checked" : " "
-        }></h4></li>`;
+        }>${
+          item.name
+        }</h4><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span></li>`;
       });
     } else {
       itemsArray.forEach((item, index) => {
@@ -143,11 +143,11 @@ class Display {
       itemsArray.forEach((item, index) => {
         html += `<li data-index="${index}"  ${
           item.isInCart ? ' class="item inCart"' : ' class="item"'
-        }><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span><h4>${
-          item.name
-        }<input type="checkbox" class="checkBox" ${
+        }><h4><input type="checkbox" class="checkBox" ${
           item.isInCart ? "checked" : " "
-        }></h4></li>`;
+        }>${
+          item.name
+        }</h4><span title='Delete'><i class="fas fa-trash-alt deleteItem"></i></span></li>`;
       });
     } else {
       itemsArray.forEach((item, index) => {

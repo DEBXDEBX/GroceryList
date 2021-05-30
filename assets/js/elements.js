@@ -26,5 +26,7 @@ class Elements {
     this.messageBorder = document.querySelector("#modalBorder");
     // delete mode btn
     this.deleteModeBtn = document.querySelector("#deleteMode");
+    // body
+    this.body = document.querySelector("body");
   }
 }

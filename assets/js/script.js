@@ -256,6 +256,11 @@ el.itemCancelBtn.addEventListener("click", (e) => {
 el.deleteModeBtn.addEventListener("click", (e) => {
   deleteMode = !deleteMode;
 
+  if (deleteMode) {
+    el.body.style.background = "linear-gradient(to right, #180808, #ff0000)";
+  } else {
+    el.body.style.background = "white";
+  }
   let activeStore = document.querySelector(".store.active");
   if (!activeStore) {
     renderStores();

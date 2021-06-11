@@ -198,7 +198,7 @@ el.itemList.addEventListener("click", (e) => {
     deleteAudio.play();
     // save
     saveGorceryList();
-    display.showAlert("Item deleted", "success", 1500);
+    display.showAlert("Item deleted", "success", 500);
     // renderItems();
     display.paintItemsOnly(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
     return;
@@ -230,7 +230,7 @@ el.itemAddBtn.addEventListener("click", (e) => {
   let itemText = el.itemTextInput.value.trim();
   if (!itemText) {
     warning1Audio.play();
-    display.showAlert("Please enter a name for the item", "error");
+    display.showAlert("Please enter a name for the item", "error", 1000);
     return;
   }
 

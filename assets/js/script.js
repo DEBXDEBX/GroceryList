@@ -198,7 +198,7 @@ el.itemList.addEventListener("click", (e) => {
     deleteAudio.play();
     // save
     saveGorceryList();
-    display.showAlert("Item deleted", "success", 500);
+    display.showAlert("Item deleted", "success", 1000);
     // renderItems();
     display.paintItemsOnly(arrayOfStores[storeIndex].arrayOfItems, deleteMode);
     return;

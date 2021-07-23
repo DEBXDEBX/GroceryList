@@ -32,6 +32,9 @@ h3 > span {
   font-weight: 900;
   color: #2de11d;
 }
+h4 {
+  color: #f08;
+}
 i:hover {
   cursor: pointer;
 }
@@ -145,8 +148,18 @@ nav li.item:hover {
   /* color: #e217a2; */
   color: black;
 }
-.inCart {
-  color: #e217a2;
+
+nav li.item:hover {
+  /* color: #e217a2; */
+  color: black;
+}
+li.inCart h4 {
+  color: #777;
+  text-decoration: line-through;
+}
+
+nav li.inCart:hover {
+  color: #777;
 }
 /* item code end  */
 

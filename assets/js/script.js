@@ -254,6 +254,7 @@ el.itemCancelBtn.addEventListener("click", (e) => {
 });
 
 el.deleteModeBtn.addEventListener("click", (e) => {
+  clickAudio.play();
   deleteMode = !deleteMode;
 
   if (deleteMode) {
